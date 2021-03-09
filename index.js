@@ -7,6 +7,9 @@ const app = express();
 // port to run the server
 const port = 8000;
 
+// use express router
+app.use('/',require('./routes'));
+
 // checking whether server is running or not
 app.listen(port,function(err){
      if(err)
