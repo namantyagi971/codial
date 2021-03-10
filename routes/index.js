@@ -8,6 +8,10 @@ const router = express.Router();
 const homeContollers = require('../controllers/home_controller');
 
 router.get('/',homeContollers.home);
+router.get('/courses',homeContollers.courses);
+
+// route with '/users' will handle by users.js
+router.use('/users',require('./users'));
 
 // export it to main file index.js
 module.exports = router;
