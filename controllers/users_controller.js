@@ -1,6 +1,8 @@
 // 
 module.exports.profile = function(req,res){
-    return res.end('<h1>User Profile</h1>')
+    return res.render('users',{
+        title: "Coding Ninjas Courses",
+    });
 }
 
 module.exports.coder = function(req,res){
