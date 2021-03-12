@@ -4,6 +4,9 @@ const express = require('express');
 // require the library layout
 const expressLayouts = require('express-ejs-layouts');
 
+// connecting to the database
+const db = require('./config/mongoose');
+
 // fire up the server
 const app = express();
 
