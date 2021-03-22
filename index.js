@@ -1,6 +1,9 @@
 // require the library
 const express = require('express');
 
+// require the cookies
+const cookieParser = require('cookie-parser');
+
 // require the library layout
 const expressLayouts = require('express-ejs-layouts');
 
@@ -12,6 +15,12 @@ const app = express();
 
 // call to use expresslayouts
 app.use(expressLayouts);
+
+// middleware to parse the request
+app.use(express.urlencoded());
+
+// middleware for cookie parser
+app.use(cookieParser());
 
 // extract script and style from subfiles to layouts
 app.set("layout extractStyles",true);
