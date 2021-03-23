@@ -14,4 +14,7 @@ router.get('/sign-up',userController.signUp);
 // route for posting the form of new user
 router.post('/create',userController.create);
 
+// route for posting the sign-in form
+router.post('/create-session',userController.createSession);
+
 module.exports = router;

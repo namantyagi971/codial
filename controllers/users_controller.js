@@ -31,12 +31,16 @@ module.exports.create = function(req,res){
     {
         return res.redirect('back');
     }
+
+    // verifying the email (because email should be unique)
     User.findOne({email : req.body.email},function(err,user){
         if(err)
         {
             console.log("error in finding user from database");
             return;
         }
+
+        // user is signing up for first time
         if(!user)
         {
             User.create(req.body,function(err,newuser){
@@ -48,6 +52,8 @@ module.exports.create = function(req,res){
                 return res.redirect('users/sign-in');
             });
         }
+
+        // user already exists
         else
         {
             return res.redirect('back');
@@ -59,5 +65,39 @@ module.exports.create = function(req,res){
 
 // sign in and  create the session for user 
 module.exports.createSession = function(req,res){
-    // To Do later
+    // verifying idenitity (through) email
+    User.findOne({email : req.body.email},function(err,user){
+        if(err)
+        {
+            console.log("error in finding user from database");
+            return;
+        }
+
+        // if user found
+        if(user)
+        {
+            // verifying password
+
+            // if password matches
+            if(user.password==req.body.password)
+            {
+                // create session for user 
+                res.cookie('user_id',user.id);
+                return res.redirect('/users/profile');
+            }
+
+            // if password doesn't match
+            else
+            {
+                return res.redirect('back');
+            }
+                     
+        }
+         // if user not found
+        else
+        {
+            return res.redirect('back');
+        }
+
+    });
 }
