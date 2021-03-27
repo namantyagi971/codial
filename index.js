@@ -4,14 +4,22 @@ const express = require('express');
 // require the cookies
 const cookieParser = require('cookie-parser');
 
+// fire up the server
+const app = express();
+
+// port to run the server
+const port = 8000;
+
 // require the library layout
 const expressLayouts = require('express-ejs-layouts');
 
 // connecting to the database
 const db = require('./config/mongoose');
 
-// fire up the server
-const app = express();
+// setting up the session cookies
+const session = require('express-session');
+const passport = require('passport');
+const passportLocal = require('./config/passport-local-strategy');
 
 // call to use expresslayouts
 app.use(expressLayouts);
@@ -29,13 +37,25 @@ app.set("layout extractScripts",true);
 // for including static files
 app.use(express.static('assets'));
 
-
-// port to run the server
-const port = 8000;
-
 // set up view engine
 app.set('view engine','ejs');
 app.set('views','./views');
+
+// middleware to session cookie
+app.use(session({
+    name : 'codial',
+    // TODO change the secret before deployment in production code
+    secret : 'blahsomething',
+    saveUninitialized : false,
+    resave : false,
+    cookie : {
+        maxAge : (1000*60*100)
+    }
+}));
+
+// to tell app to use passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 // use express router
 app.use('/',require('./routes'));

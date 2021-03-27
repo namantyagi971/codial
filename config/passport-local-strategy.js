@@ -10,8 +10,8 @@ const User = require('../modals/user');
 // require user
 
 // authentication using passport.js
-passport.use(LocalStrategy({
-    usernameField : email
+passport.use(new LocalStrategy({
+    usernameField : 'email'
     },
 
     // function to take email and password entered by user and done is callback function that report to passport
@@ -31,7 +31,7 @@ passport.use(LocalStrategy({
                 return done(null,false);
             }
             // successfully found user
-            return done(null,true);
+            return done(null,user);
         });
 
     }
@@ -53,6 +53,17 @@ passport.deserializeUser(function(id,done){
         return done(null,user);
     });
 });
+
+// check if the user is authenticated
+passport.checkAuthentication = function(req,res,next){
+    // if the user is authenticated,then pass to the next function(i.e, controllers action)
+    if(req.isAuthenticated())
+    {
+        next();
+    }
+    // if the user is not authenticated
+    return res.redirect('/users/sign-in');
+}
 
 // export passport to use by other files
 module.exports = passport;

@@ -7,10 +7,6 @@ module.exports.profile = function(req,res){
     });
 }
 
-module.exports.coder = function(req,res){
-    return res.end('<h1> Naman Tyagi is hiring top Coder. Wanna join him ?  </h1>');
-}
-
 module.exports.signIn = function(req,res){
     return res.render('users_sign_in',{
         title : "Codial | SignIn"
@@ -45,7 +41,7 @@ module.exports.create = function(req,res){
                     console.log("error in creating new user in database");
                     return;
                 }
-                return res.redirect('users/sign-in');
+                return res.redirect('/users/sign-in');
             });
         }
         else
@@ -59,5 +55,5 @@ module.exports.create = function(req,res){
 
 // sign in and  create the session for user 
 module.exports.createSession = function(req,res){
-    // To Do later
+    return res.redirect('/');
 }
