@@ -2,7 +2,7 @@
 const User = require('../modals/user');
 
 module.exports.profile = function(req,res){
-    return res.render('users',{
+    return res.render('user_profile',{
         title: "Coding Ninjas Courses",
     });
 }
