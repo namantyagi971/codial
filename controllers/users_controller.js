@@ -2,14 +2,32 @@
 const User = require('../modals/user');
 
 module.exports.profile = function(req,res){
-    return res.render('users',{
-        title: "Coding Ninjas Courses",
-    });
+    if(req.cookies.user_id)
+    {
+         User.findById(req.cookies.user_id,function(err,user){
+            if(err)
+            {
+                console.log("error in finding user from database");
+                return;
+            }
+            if(user)
+            {
+                return res.render('users_profile',{
+                    title : "User Profile",
+                    user : user
+                });
+            }
+            return res.redirect('/users/sign-in');
+        });
+    }
+    // if someone delete the cookie having user id
+    else
+    {
+        return res.redirect('/users/sign-in');
+    }
 }
 
-module.exports.coder = function(req,res){
-    return res.end('<h1> Naman Tyagi is hiring top Coder. Wanna join him ?  </h1>');
-}
+
 
 module.exports.signIn = function(req,res){
     return res.render('users_sign_in',{
