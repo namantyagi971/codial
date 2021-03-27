@@ -55,6 +55,7 @@ app.use(session({
 
 // to tell app to use passport
 app.use(passport.initialize());
+app.use(passport.setAuthenticatedUser);
 app.use(passport.session());
 
 // use express router
