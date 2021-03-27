@@ -3,17 +3,25 @@ const User = require('../modals/user');
 
 module.exports.profile = function(req,res){
     return res.render('user_profile',{
-        title: "Coding Ninjas Courses",
+        title: "User | Profile"
     });
 }
 
 module.exports.signIn = function(req,res){
+    if(req.isAuthenticated())
+    {
+        return res.redirect('/users/profile');
+    }
     return res.render('users_sign_in',{
         title : "Codial | SignIn"
     });
 }
 
 module.exports.signUp = function(req,res){
+    if(req.isAuthenticated())
+    {
+        return res.redirect('/users/profile');
+    }
     return res.render('users_sign_up',{
         title : "Codial | SignUp"
     });

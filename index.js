@@ -55,8 +55,12 @@ app.use(session({
 
 // to tell app to use passport
 app.use(passport.initialize());
-app.use(passport.setAuthenticatedUser);
+
+// it will create session for user
 app.use(passport.session());
+
+// it will store current signed in user in locals
+app.use(passport.setAuthenticatedUser);
 
 // use express router
 app.use('/',require('./routes'));
