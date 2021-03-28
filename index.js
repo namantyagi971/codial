@@ -21,6 +21,9 @@ const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 
+// require the library
+const MongoStore = require('connect-mongo')(session);
+
 // call to use expresslayouts
 app.use(expressLayouts);
 
@@ -41,7 +44,7 @@ app.use(express.static('assets'));
 app.set('view engine','ejs');
 app.set('views','./views');
 
-// middleware to session cookie
+// mongoStore to store session cookie in mongoDB
 app.use(session({
     name : 'codial',
     // TODO change the secret before deployment in production code
@@ -50,7 +53,13 @@ app.use(session({
     resave : false,
     cookie : {
         maxAge : (1000*60*100)
-    }
+    },
+    store : new MongoStore({
+        mongooseConnection : db,
+        autoRemove : 'disabled'
+    },function(err){
+        console.log(err||'mongostore connects to mongodb');
+    })
 }));
 
 // to tell app to use passport
