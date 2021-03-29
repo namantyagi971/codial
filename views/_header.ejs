@@ -1,22 +1,16 @@
 <header>
-    <ul>
-        <% if(locals.user) { %>
-            <li>
+    <div id ="flexible">
+        <div id="website-name">
+            Codial
+        </div>
+        <div id="nav-option">
+            <% if(locals.user) { %>
                 <a href='/users/profile'><%= user.name %> </a>
-            </li>
-            <li>
                 <a href='/users/sign-out'>Sign Out</a>
-            </li>
-        <% } else { %>
-            <li>
+            <% } else { %>
                 <a href='/users/sign-in'>Sign In </a>
-            </li>
-            <li>
                 <a href='/users/sign-up'>Sign Up</a>
-            </li>
-        <% } %>
-         
-    </ul>
-
-
+            <% } %>
+        </div>
+    </div>     
 </header>

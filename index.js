@@ -24,6 +24,18 @@ const passportLocal = require('./config/passport-local-strategy');
 // require the library
 const MongoStore = require('connect-mongo')(session);
 
+// require the library
+const sassMiddleware = require('node-sass-middleware');
+
+// setting the sass middleware (just before the server starts as templates need precompiled files)
+app.use(sassMiddleware({
+    src : './assets/scss/',
+    dest : './assets/css',
+    debug : true,
+    outputStyle : 'extended',
+    prefix : '/css'
+}));
+
 // call to use expresslayouts
 app.use(expressLayouts);
 
