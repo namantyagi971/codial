@@ -1,5 +1,7 @@
+// importing the schema 
 const Post = require('../modals/post');
 
+// creating the post in database
 module.exports.create=function(req,res){
     Post.create({
         content : req.body.content,
@@ -13,3 +15,4 @@ module.exports.create=function(req,res){
         return res.redirect('back');
     });
 }
+

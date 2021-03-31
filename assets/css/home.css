@@ -1,2 +1,10 @@
 body {
   background-color: bisque; }
+  body ::-webkit-scrollbar {
+    display: none; }
+  body #post-content {
+    height: 50vh;
+    overflow: scroll;
+    overflow-x: hidden; }
+  body ::-webkit-scrollbar {
+    display: none; }

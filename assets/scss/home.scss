@@ -1,3 +1,13 @@
 body{
     background-color: bisque;
+    ::-webkit-scrollbar{
+        display: none;
+    }
+    #post-content{
+        height : 50vh;
+        overflow: scroll;
+        overflow-x: hidden;
+
+    }
+    
 }

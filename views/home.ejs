@@ -9,3 +9,16 @@
         <input type="submit" value="Post">
     </form>
 </section>
+
+<!-- section that includes all post of user -->
+<section id = "show-posts">
+    <h2> All Posts</h2>
+    <ul id ="post-content">
+     <% for(let post of allposts) { %>
+        <li>
+              <p> <%= post.content %> </p>
+              <p> <%= post.user.name %> </p>
+        </li>
+     <% } %>
+    </ul>
+</section>
