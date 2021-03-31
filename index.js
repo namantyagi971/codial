@@ -86,6 +86,7 @@ app.use(passport.setAuthenticatedUser);
 // use express router
 app.use('/',require('./routes'));
 app.use('/users',require('./routes/users'));
+app.use('/posts',require('./routes/posts'));
 
 // checking whether server is running or not
 app.listen(port,function(err){

@@ -16,7 +16,7 @@ const postSchema = new mongoose.Schema({
 });
 
 // storing in database as collection(posts)
-const post = mongoose.model('Post',postSchema);
+const Post = mongoose.model('Post',postSchema);
 
 // exporting to required by other files
-module.exports = post;
+module.exports = Post;
