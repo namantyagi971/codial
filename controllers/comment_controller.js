@@ -1,6 +1,6 @@
 const Comment = require('../modals/comment');
 const Post = require('../modals/post');
-
+const User = require('../modals/user');
 module.exports.create = function(req,res){
     // check whether post exist in database (bacuase any user can fiddle our website by inspecting HTML)
     console.log("post id : ",req.body.post);
@@ -25,5 +25,28 @@ module.exports.create = function(req,res){
             return res.redirect('back');
         });
         }
+    });
+}
+
+// deleting the comment from database
+module.exports.destroy = function(req,res){
+    console.log("comment id : ",req.query.id);
+    Comment.findById(req.query.id,function(err,comment){
+        // handle error
+        
+        // if the current signed in user is same as user who commented
+        if(req.user.id==comment.user)
+        {
+            let postId = comment.post;
+            comment.remove();
+            Post.findByIdAndUpdate(postId,{$pull : {comments : req.query.id}},function(err,post){
+                return res.redirect('back');
+            });
+        }
+        else
+        {
+            return res.redirect('back');
+        }
+ 
     });
 }

@@ -40,6 +40,11 @@
               <div class="post-comments-list">
                   <ul type="square" id = "post-comments-<%= post._id %>">
                       <% for(let comment of post.comments) { %>
+                        <% if((locals.user)&&(locals.user.id==comment.user.id)) { %>
+                        <small>
+                            <a href="/comments/delete?id=<%= comment._id %>">X</a>
+                        </small>
+                        <% } %>
                         <li>
                             <%= comment.content %>
                             <br>
