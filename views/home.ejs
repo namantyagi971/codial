@@ -3,11 +3,14 @@
 
 <!-- section corresponding to posts -->
 <section id="feed-posts">
+    <!-- if the user is signed in, then only show the form -->
+    <% if(locals.user) { %>
     <h2>Posts</h2>
     <form action="/posts/create" id="new-post-form" method="POST">
         <textarea name="content"  cols="30" rows="3" placeholder="Type here..."></textarea>
         <input type="submit" value="Post">
     </form>
+    <% } %>
 </section>
 
 <!-- section that includes all post of user -->
