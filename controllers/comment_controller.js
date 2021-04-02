@@ -19,7 +19,7 @@ module.exports.create = function(req,res){
         },function(err,comment){
             // this is my first updation
             // now saving comment id in post collection
-            post.comments.push(comment.id);   // or post.comments.push(comment) it will also works as mongoose will fetch only id
+            post.comments.push(comment.id);   // or post.comments.push(comment/comment._id) it will also works as mongoose will fetch only id
             // now telling mongodb to save it
             post.save();
             return res.redirect('back');
