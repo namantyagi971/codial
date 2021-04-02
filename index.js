@@ -87,6 +87,7 @@ app.use(passport.setAuthenticatedUser);
 app.use('/',require('./routes'));
 app.use('/users',require('./routes/users'));
 app.use('/posts',require('./routes/posts'));
+app.use('/comments',require('./routes/comments'));
 
 // checking whether server is running or not
 app.listen(port,function(err){
