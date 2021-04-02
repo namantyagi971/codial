@@ -18,7 +18,12 @@
     <h2> All Posts</h2>
     <ul id ="post-content">
      <% for(let post of allposts) { %>
-        <li>
+        <li> 
+            <% if((locals.user) && (locals.user.id==post.user.id)) { %>
+              <small>
+                 <a href="posts/delete/?id=<%= post._id %>">X</a> 
+              </small>
+              <% } %>
               <p> <%= post.content %> </p>
               <p> <%= post.user.name %> </p>
               <% if(locals.user) { %>
