@@ -1,4 +1,14 @@
 <link rel="stylesheet" href="/css/users.css">
 <h1> User profile </h1>
-<h3><%= user_profile.name %></h3>
-<h3><%= user_profile.email %></h3>
+
+<!-- updating the profile if current signed in user and profile user is same -->
+<% if(user.id==user_profile.id) { %>
+    <form action="/users/update/?id=<%= user_profile._id %>" method="POST">
+        <input type="text" name="name" value="<%= user_profile.name %>" placeholder="Your Name" required>
+        <input type="email" name="email" value="<%= user_profile.email %>" placeholder="Your Email" required>
+        <input type="submit" value="Update">
+    </form>
+    <% }else{ %>
+     <h3><%= user_profile.name %></h3>
+     <h3><%= user_profile.email %></h3>
+     <% } %>
