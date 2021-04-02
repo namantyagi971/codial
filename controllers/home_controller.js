@@ -1,5 +1,6 @@
 // require the schema
 const Post = require('../modals/post');
+const User = require('../modals/user');
 
 // export to other files
 module.exports.home = function(req,res){
@@ -30,10 +31,14 @@ module.exports.home = function(req,res){
         }
     })
     .exec(function(err,posts){
-        return res.render('home',{
+
+        User.find({},function(err,users){
+            return res.render('home',{
             allposts : posts,
-            title : 'Codial | home'
+            title : 'Codial | home',
+            all_users : users
         });
 
     });
+});
 }

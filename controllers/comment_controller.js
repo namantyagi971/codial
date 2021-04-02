@@ -33,9 +33,15 @@ module.exports.destroy = function(req,res){
     console.log("comment id : ",req.query.id);
     Comment.findById(req.query.id,function(err,comment){
         // handle error
-        
+        if(err)
+        {
+            console.log("Error in finding comment from database",err);
+            return res.redirect('/');
+        }
         // if the current signed in user is same as user who commented
-        if(req.user.id==comment.user)
+        // or the user who created the post because the post creator has right to delete the comment if
+        // he/she didn't like it
+        if(req.user.id==comment.user||req.user.id==comment.post)
         {
             let postId = comment.post;
             comment.remove();

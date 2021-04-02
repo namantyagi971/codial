@@ -17,43 +17,18 @@
 <section id = "show-posts">
     <h2> All Posts</h2>
     <ul id ="post-content">
-     <% for(let post of allposts) { %>
-        <li> 
-            <% if((locals.user) && (locals.user.id==post.user.id)) { %>
-              <small>
-                 <a href="posts/delete/?id=<%= post._id %>">X</a> 
-              </small>
-              <% } %>
-              <p> <%= post.content %> </p>
-              <p> <%= post.user.name %> </p>
-              <% if(locals.user) { %>
-                <!-- form for comments -->
-              <div class="post-comments">
-                <form action="/comments/create" method="POST">
-                    <input type="text" name ="content" placeholder="Add comment ..."></textarea>
-                    <input type="hidden" name="post" value="<%= post._id %>">
-                    <input type="submit" value="Post Comment">
-                </form>
-              </div>
-              <% } %>
-              <!-- to display comments and author of comments -->
-              <div class="post-comments-list">
-                  <ul type="square" id = "post-comments-<%= post._id %>">
-                      <% for(let comment of post.comments) { %>
-                        <% if((locals.user)&&(locals.user.id==comment.user.id)) { %>
-                        <small>
-                            <a href="/comments/delete?id=<%= comment._id %>">X</a>
-                        </small>
-                        <% } %>
-                        <li>
-                            <%= comment.content %>
-                            <br>
-                            <%= comment.user.name %>
-                        </li>
-                      <% } %>
-                  </ul>
-              </div>
-        </li>
+     <% for(post of allposts) { %>
+        <%- include('./_post'); %>
      <% } %>
     </ul>
+</section>
+
+<!-- section to show user friends  -->
+<section id="user-friends">
+    <h4>Friends</h4>
+    <%  for(user of all_users) { %>
+        <p>
+            <a href="/users/profile/?id=<%= user._id %>"><%= user.name %></a>
+        </p>
+    <% } %>
 </section>
