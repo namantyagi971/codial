@@ -7,7 +7,7 @@
         <% if(locals.user) { %>
             <h2>Posts</h2>
             <form action="/posts/create" id="new-post-form" method="POST">
-                <textarea name="content"  cols="30" rows="3" placeholder="Type here..."></textarea>
+                <textarea name="content"  cols="30" rows="3" placeholder="Type here..." required></textarea>
                 <input type="submit" value="Post">
             </form>
         <% } %>

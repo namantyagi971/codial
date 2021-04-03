@@ -44,9 +44,9 @@ const User = require('../modals/user');
 // }
 
 // doing it async await way
-try{
-    module.exports.home = async function(req,res){
+module.exports.home = async function(req,res){
 
+    try{
        let posts = await Post.find({}).populate('user')
             //  this is nested population
             .populate({
@@ -62,8 +62,9 @@ try{
             title : 'Codial | home',
             all_users : users
         });
-    }
 
-}catch{
+    }catch(err){
      console.log(`Error ${err}`);
+     return;
+    }
 }

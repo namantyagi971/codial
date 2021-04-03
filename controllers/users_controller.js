@@ -44,38 +44,63 @@ module.exports.signUp = function(req,res){
     });
 }
 
-// get the sign up data
-module.exports.create = function(req,res){
+// // get the sign up data
+// module.exports.create = function(req,res){
     
-    //if password and confirm password don't match
-    if(req.body.password!=req.body.confirm_password)
-    {
-        return res.redirect('back');
-    }
-    User.findOne({email : req.body.email},function(err,user){
-        if(err)
+//     //if password and confirm password don't match
+//     if(req.body.password!=req.body.confirm_password)
+//     {
+//         return res.redirect('back');
+//     }
+//     User.findOne({email : req.body.email},function(err,user){
+//         if(err)
+//         {
+//             console.log("error in finding user from database");
+//             return;
+//         }
+//         if(!user)
+//         {
+//             User.create(req.body,function(err,newuser){
+//                 if(err)
+//                 {
+//                     console.log("error in creating new user in database");
+//                     return;
+//                 }
+//                 return res.redirect('/users/sign-in');
+//             });
+//         }
+//         else
+//         {
+//             return res.redirect('back');
+//         }
+        
+//     })
+
+// }
+
+// get the sign up data using async await
+module.exports.create = async function(req,res){
+    try{
+        //if password and confirm password don't match
+        if(req.body.password!=req.body.confirm_password)
         {
-            console.log("error in finding user from database");
-            return;
+            return res.redirect('back');
         }
+        let user = await User.findOne({email : req.body.email});
         if(!user)
         {
-            User.create(req.body,function(err,newuser){
-                if(err)
-                {
-                    console.log("error in creating new user in database");
-                    return;
-                }
-                return res.redirect('/users/sign-in');
-            });
+            await User.create(req.body);
+            return res.redirect('/users/sign-in');
         }
         else
         {
             return res.redirect('back');
         }
-        
-    })
 
+    }catch(err){
+        console.log("error");
+        return;
+    } 
 }
 
 // sign in and  create the session for user 

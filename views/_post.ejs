@@ -10,7 +10,7 @@
         <!-- form for comments -->
       <div class="post-comments">
         <form action="/comments/create" method="POST">
-            <input type="text" name ="content" placeholder="Add comment ..."></textarea>
+            <input type="text" name ="content" placeholder="Add comment ..." required></textarea>
             <input type="hidden" name="post" value="<%= post._id %>">
             <input type="submit" value="Post Comment">
         </form>
