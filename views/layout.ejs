@@ -11,6 +11,10 @@
     </head>
     <body>
         <%- include('_header.ejs'); %>
+        <!-- display flash messages -->
+        <% if(flash.success && flash.success.length>0) { %>
+            <%= flash.success %>
+        <% } %>
         <main id="layout-body">
             <%- body %>
         </main>

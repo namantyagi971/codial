@@ -27,6 +27,12 @@ const MongoStore = require('connect-mongo')(session);
 // require the library
 const sassMiddleware = require('node-sass-middleware');
 
+// using flash library
+const flash = require('connect-flash');
+
+// using our own middleware for flash messages
+const customMware = require('./config/middleware');
+
 // setting the sass middleware (just before the server starts as templates need precompiled files)
 app.use(sassMiddleware({
     src : './assets/scss/',
@@ -82,6 +88,10 @@ app.use(passport.session());
 
 // it will store current signed in user in locals
 app.use(passport.setAuthenticatedUser);
+
+// after session got set up,i need to store flash messages in session
+app.use(flash());
+app.use(customMware.setFlash);
 
 // use express router
 app.use('/',require('./routes'));
