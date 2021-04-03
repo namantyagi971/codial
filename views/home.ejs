@@ -1,34 +1,35 @@
 <link rel="stylesheet" href="/css/home.css">
-<h1> Codial Home Page  </h1>
 
-<!-- section corresponding to posts -->
-<section id="feed-posts">
-    <!-- if the user is signed in, then only show the form -->
-    <% if(locals.user) { %>
-    <h2>Posts</h2>
-    <form action="/posts/create" id="new-post-form" method="POST">
-        <textarea name="content"  cols="30" rows="3" placeholder="Type here..."></textarea>
-        <input type="submit" value="Post">
-    </form>
-    <% } %>
-</section>
-
-<!-- section that includes all post of user -->
-<section id = "show-posts">
-    <h2> All Posts</h2>
-    <ul id ="post-content">
-     <% for(post of allposts) { %>
-        <%- include('./_post'); %>
-     <% } %>
-    </ul>
-</section>
-
-<!-- section to show user friends  -->
-<section id="user-friends">
-    <h4>Friends</h4>
-    <%  for(user of all_users) { %>
-        <p>
-            <a href="/users/profile/?id=<%= user._id %>"><%= user.name %></a>
-        </p>
-    <% } %>
-</section>
+<div id="home-container">
+    <!-- section corresponding to posts -->
+    <section id="feed-posts">
+        <!-- if the user is signed in, then only show the form -->
+        <% if(locals.user) { %>
+            <h2>Posts</h2>
+            <form action="/posts/create" id="new-post-form" method="POST">
+                <textarea name="content"  cols="30" rows="3" placeholder="Type here..."></textarea>
+                <input type="submit" value="Post">
+            </form>
+        <% } %>
+        
+        <!-- display all posts -->
+        <h2> All Posts</h2>
+        <ul id ="post-content">
+            <% for(post of allposts) { %>
+                <%- include('./_post'); %>
+            <% } %>
+        </ul>
+    </section>
+        
+            
+     <!-- section to show user friends  -->
+    <section id="user-friends">
+        <h4>Friends</h4>
+            <%  for(user of all_users) { %>
+                <p>
+                    <a href="/users/profile/?id=<%= user._id %>"><%= user.name %></a>
+                </p>
+            <% } %>
+   </section>
+</div>
+            

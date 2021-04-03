@@ -1,13 +1,13 @@
-body{
-    background-color: bisque;
-    ::-webkit-scrollbar{
-        display: none;
+#home-container{
+    display: flex;
+    height:100%;
+    #feed-posts{
+        width:80%;
+        padding:10px;
     }
-    #post-content{
-        height : 50vh;
-        overflow: scroll;
-        overflow-x: hidden;
-
+    #user-friends{
+        width : 20%;
+        padding: 10px;
+        border-left: 2px solid lightgrey;
     }
-    
 }
