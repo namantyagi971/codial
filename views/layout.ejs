@@ -1,25 +1,52 @@
 <html>
-    <head>
-        <title>
-            <%= title %>
-        </title>
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-        <link rel="stylesheet" href="/css/layout.css">
-        <link rel="stylesheet" href="/css/header.css">
-        <link rel="stylesheet" href="/css/footer.css">
-        <%- style %>
-    </head>
-    <body>
-        <%- include('_header.ejs'); %>
-        <!-- display flash messages -->
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <!-- for noty -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+    <!-- including jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- font awesome icon -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <%- style %>
+</head>
+<body>
+    <%- include('_header.ejs'); %>
+    <!-- display flash messages
         <% if(flash.success && flash.success.length>0) { %>
             <%= flash.success %>
-        <% } %>
-        <main id="layout-body">
-            <%- body %>
-        </main>
-        
-
-        <%- include('_footer'); %>
+        <% } %> -->
+            <main id="layout-body">
+                <%- body %>
+            </main>
+            
+            
+            <%- include('_footer'); %>
+            <%- script %>
+            <script>
+                <% if(flash.success && flash.success.length>0) { %>
+                    new Noty({
+                        theme : 'relax',
+                        type : 'success',
+                        text : '<%= flash.success %>',
+                        timeout : 1500,
+                        layout : 'topCenter',
+                    }).show();
+                <% } %>
+                <% if(flash.error && flash.error.length>0) { %>
+                    new Noty({
+                        theme : 'relax',
+                        type : 'error',
+                        text : '<%= flash.error %>',
+                        timeout : 1500,
+                        layout : 'topCenter',
+                    }).show();
+                <% } %>
+            </script>
     </body>
 </html>

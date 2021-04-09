@@ -11,25 +11,27 @@
                 <input type="submit" value="Post">
             </form>
         <% } %>
-        
-        <!-- display all posts -->
-        <h2> All Posts</h2>
-        <ul id ="post-content">
-            <% for(post of allposts) { %>
-                <%- include('./_post'); %>
-            <% } %>
-        </ul>
-    </section>
-        
             
-     <!-- section to show user friends  -->
-    <section id="user-friends">
-        <h4>Friends</h4>
-            <%  for(user of all_users) { %>
-                <p>
-                    <a href="/users/profile/?id=<%= user._id %>"><%= user.name %></a>
-                </p>
-            <% } %>
-   </section>
+            <!-- display all posts -->
+            <div id="posts-list-container">
+                <h2> All Posts</h2>
+                <ul>
+                    <% for(post of allposts) { %>
+                        <%- include('./_post'); %>
+                    <% } %>
+                </ul>
+            </div>
+            </section>
+            
+            
+            <!-- section to show user friends  -->
+            <section id="user-friends">
+                <h4>Friends</h4>
+                <%  for(user of all_users) { %>
+                    <p>
+                        <a href="/users/profile/?id=<%= user._id %>"><%= user.name %></a>
+                    </p>
+                <% } %>
+            </section>
 </div>
-            
+<script src="/js/home_posts.js"></script>           

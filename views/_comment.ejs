@@ -1,5 +1,5 @@
 <li>
-    <% if((locals.user)&&(locals.user.id==comment.user.id||locals.user.id==post.user.id)) { %>
+    <% if((locals.user.id==comment.user.id||locals.user.id==post.user.id)) { %>
         <small>
             <a href="/comments/delete?id=<%= comment._id %>">X</a>
         </small>

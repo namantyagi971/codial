@@ -48,11 +48,12 @@ module.exports.create = async function(req,res){
             post.comments.push(comment.id);   // or post.comments.push(comment/comment._id) it will also works as mongoose will fetch only id
             // now telling mongodb to save it
             post.save();
+            req.flash('success','Comment created!');
             return res.redirect('back');
         }
         
     }catch(err){
-        console.log("error",err);
+        req.flash('error',err);
         return;
     }
     
@@ -99,14 +100,16 @@ module.exports.destroy = async  function(req,res){
             let postId = comment.post;
             comment.remove();
             await Post.findByIdAndUpdate(postId,{$pull : {comments : req.query.id}});
+            req.flash('success','Comment deleted!');
             return res.redirect('back');
         }
         else
         {
+            req.flash('error','You cannot delete the comment!');
             return res.redirect('back');
         }   
     }catch(err){
-        console.log("error",err);
+        req.flash('error',err);
         return;
     }  
 }

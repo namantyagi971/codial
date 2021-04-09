@@ -11,23 +11,24 @@ const User = require('../modals/user');
 
 // authentication using passport.js
 passport.use(new LocalStrategy({
-    usernameField : 'email'
+    usernameField : 'email',
+    passReqToCallback : true
     },
 
     // function to take email and password entered by user and done is callback function that report to passport
-    function(email,password,done){
+    function(req,email,password,done){
           
         // finding user and verifying its identity
         User.findOne({email: email},function(err,user){
             if(err)
             {
-                console.log("Error in finding user --> passport");
+                req.flash('error',"Error in finding user --> passport");
                 return done(err);
             }
             // user not found or entered password doesn't match
             if(!user||user.password!=password)
             {
-                console.log('Invalid Username/Password');
+                req.flash('error','Invalid Username/Password');
                 return done(null,false);
             }
             // successfully found user
