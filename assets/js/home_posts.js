@@ -12,6 +12,8 @@
                 success : function(data){
                     let newPost = newPostDom(data.data.post);
                     $('#posts-list-container>ul').prepend(newPost);
+                    // refer to delete class button which is inside newPost, there is space at starting
+                    deletePost($(' .delete-class-button',newPost));
                 },
                 error : function(err){
                     console.log(err.responseText);
@@ -27,7 +29,7 @@
                         <a class="delete-class-button" href="/posts/delete/?id=${ post._id}">X</a> 
                     </small>
                     <p> ${post.content} </p>
-                    <p> ${ post.user.name } </p>
+                    <p> ${post.user.name } </p>
                         <!-- form for comments -->
                         <div class="post-comments">
                             <form action="/comments/create" method="POST">
@@ -45,6 +47,28 @@
                     </div>
                   </li>`
                 );
+    }
+
+
+    // method to delete the post
+    let deletePost = function(deletelink){
+        $(deletelink).click(function(event)
+        {
+            event.preventDefault();
+            $.ajax({
+            type : 'get',
+            url : $(deletelink).prop('href'),
+            success : function(data){
+                // remove is an ajax inbuilt function
+                $(`#post-${data.data.post_id}`).remove();
+
+            },
+            error : function(err){
+                console.log(err.responseText);
+            }
+
+            });
+        })
     }
     createPost();
 }

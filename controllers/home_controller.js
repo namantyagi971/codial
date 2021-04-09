@@ -47,7 +47,10 @@ const User = require('../modals/user');
 module.exports.home = async function(req,res){
 
     try{
-       let posts = await Post.find({}).populate('user')
+       let posts = await Post.find({})
+       // this is used to sort the post according to nearest time first
+       .sort('-createdAt')
+       .populate('user')
             //  this is nested population
             .populate({
                 path : 'comments',
