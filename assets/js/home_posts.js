@@ -10,13 +10,17 @@
                 url : '/posts/create',
                 data : newPostForm.serialize(),
                 success : function(data){
+                    console.log(data);
                     let newPost = newPostDom(data.data.post);
                     $('#posts-list-container>ul').prepend(newPost);
                     // refer to delete class button which is inside newPost, there is space at starting
                     deletePost($(' .delete-class-button',newPost));
+                    // calling noty function to display message
+                    callNoty('success',data.message);
                 },
                 error : function(err){
                     console.log(err.responseText);
+                    callNoty('error','Error in publishing Post');
                 }
                 
             });
@@ -24,6 +28,7 @@
     }
     // method to create a post in DOM
     let newPostDom = function(post){
+        console.log("post : ",post);
         return $(`<li id="post-${post._id}"> 
                     <small>
                         <a class="delete-class-button" href="/posts/delete/?id=${ post._id}">X</a> 
@@ -70,5 +75,35 @@
             });
         })
     }
+
+    //noty to display messages
+    let callNoty = function(type,message)
+    {
+        console.log("type",type);
+        if(type=='success')
+        {
+            new Noty({
+                theme : 'relax',
+                type : 'success',
+                text : message,
+                timeout : 1500,
+                layout : 'topCenter',
+            }).show()
+        }
+        else
+        {
+            new Noty({
+                theme : 'relax',
+                type : 'error',
+                text : message,
+                timeout : 1500,
+                layout : 'topCenter',
+            }).show()
+        
+        }
+            
+    }
+
+   
     createPost();
 }

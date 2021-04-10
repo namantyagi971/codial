@@ -29,24 +29,24 @@
             <%- include('_footer'); %>
             <%- script %>
             <script>
-                <% if(flash.success && flash.success.length>0) { %>
-                    new Noty({
-                        theme : 'relax',
-                        type : 'success',
-                        text : '<%= flash.success %>',
-                        timeout : 1500,
-                        layout : 'topCenter',
-                    }).show();
-                <% } %>
-                <% if(flash.error && flash.error.length>0) { %>
-                    new Noty({
-                        theme : 'relax',
-                        type : 'error',
-                        text : '<%= flash.error %>',
-                        timeout : 1500,
-                        layout : 'topCenter',
-                    }).show();
-                <% } %>
+                // <% if(flash.success && flash.success.length>0) { %>
+                //     new Noty({
+                //         theme : 'relax',
+                //         type : 'success',
+                //         text : '<%= flash.success %>',
+                //         timeout : 1500,
+                //         layout : 'topCenter',
+                //     }).show();
+                // <% } %>
+                // <% if(flash.error && flash.error.length>0) { %>
+                //     new Noty({
+                //         theme : 'relax',
+                //         type : 'error',
+                //         text : '<%= flash.error %>',
+                //         timeout : 1500,
+                //         layout : 'topCenter',
+                //     }).show();
+                // <% } %>
             </script>
     </body>
 </html>

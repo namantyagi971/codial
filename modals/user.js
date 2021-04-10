@@ -1,5 +1,10 @@
 // inproting the mongoose
 const mongoose = require('mongoose');
+// inporting the multer
+const multer = require('multer');
+const path = require('path');
+// path is used to convert string path to url
+const AVATAR_PATH = path.join('/uploads/user/avatars');
 
 // creating database schema. 
 const userSchema = new mongoose.Schema({
