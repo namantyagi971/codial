@@ -27,6 +27,16 @@ const userSchema = new mongoose.Schema({
 
 // timestamps : true will create two field in our model createdAt and updatedAt
 
+// storing file at local storage through multer
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, path.join(__dirname,'..',AVATAR_PATH));
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now())
+    }
+  })
+
 // registering our schema with mongoose so that it can be accessed anywhere in the document 
 const User  = mongoose.model('User',userSchema);
 
