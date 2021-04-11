@@ -1,5 +1,7 @@
 <link rel="stylesheet" href="/css/users.css">
-<h1> User profile </h1>
+
+<!-- display image -->
+<img src="<%= user.avatar %>" alt="profile image">
 
 <!-- updating the profile if current signed in user and profile user is same -->
 <% if(user.id==user_profile.id) { %>
