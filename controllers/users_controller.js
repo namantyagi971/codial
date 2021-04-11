@@ -11,13 +11,45 @@ module.exports.profile = function(req,res){
 }
 
 // updating the profile
-module.exports.update= function(req,res){
+module.exports.update= async function(req,res){
+
     // someone can render the HTML to change the profile id so check here also
+    // if(req.user.id==req.query.id)
+    // {
+    //     User.findByIdAndUpdate(req.query.id,req.body,function(err,user){
+    //                     return res.redirect('back');
+    //             });
+    // }
+    // else
+    // {
+    //     return res.status(401).send('Unauthorized');
+    // }
     if(req.user.id==req.query.id)
     {
-        User.findByIdAndUpdate(req.query.id,req.body,function(err,user){
+        try{
+                let user = await User.findById(req.query.id);
+                User.uploadedAvatar(req,res,function(err)
+                {
+                    if(err)
+                    {
+                        console.log("*******Multer Error",err);
+                    }
+                    user.name = req.body.name;
+                    user.email = req.body.email;
+                    if(req.file)
+                    {
+                        //this is just saving the path of uploaded file in avatar field of user schema
+                        user.avatar = User.avatarPath+'/'+req.file.filename;
+                        // user.avatar = req.file.path;
+                    }
+                    user.save();
+                    return res.redirect('back');
+                });
+            }catch(err){
+                req.flash('error',err)
+                console.log("error",err);
                 return res.redirect('back');
-        });
+            }     
     }
     else
     {

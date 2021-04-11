@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const multer = require('multer');
 const path = require('path');
 // path is used to convert string path to url
-const AVATAR_PATH = path.join('/uploads/user/avatars');
+const AVATAR_PATH = path.join('/uploads/users/avatars');
 
 // creating database schema. 
 const userSchema = new mongoose.Schema({
@@ -20,6 +20,9 @@ const userSchema = new mongoose.Schema({
     name : {
         type : String,
         required : true
+    },
+    avatar : {
+      type : String
     }
 },{
     timestamps : true
@@ -28,14 +31,20 @@ const userSchema = new mongoose.Schema({
 // timestamps : true will create two field in our model createdAt and updatedAt
 
 // storing file at local storage through multer
-var storage = multer.diskStorage({
+let storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, path.join(__dirname,'..',AVATAR_PATH));
     },
     filename: function (req, file, cb) {
-      cb(null, file.fieldname + '-' + Date.now())
+      cb(null, file.fieldname + '-' + Date.now());
     }
-  })
+  });
+
+// static methods
+userSchema.statics.uploadedAvatar = multer({storage : storage}).single('avatar');
+
+// this is used to make path of file publicly
+userSchema.statics.avatarPath = AVATAR_PATH;
 
 // registering our schema with mongoose so that it can be accessed anywhere in the document 
 const User  = mongoose.model('User',userSchema);
