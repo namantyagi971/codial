@@ -1,5 +1,7 @@
 // importing the collection
 const User = require('../modals/user');
+const fs = require('fs');
+const path = require('path');
 
 module.exports.profile = function(req,res){
     User.findById(req.query.id,function(err,user){
@@ -38,6 +40,10 @@ module.exports.update= async function(req,res){
                     user.email = req.body.email;
                     if(req.file)
                     {
+                        if(user.avatar)
+                        {
+                            fs.unlinkSync(path.join(__dirname,'..',user.avatar));
+                        }
                         //this is just saving the path of uploaded file in avatar field of user schema
                         user.avatar = User.avatarPath+'/'+req.file.filename;
                         // user.avatar = req.file.path;

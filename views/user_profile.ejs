@@ -1,9 +1,12 @@
 <link rel="stylesheet" href="/css/users.css">
-
+<br>
+<div>
 <!-- display image -->
-<img src="<%= user.avatar %>" alt="profile image">
-
+<img src="<%= user_profile.avatar %>" alt="profile image" height = "150px" width="150px">
+</div>
+<br>
 <!-- updating the profile if current signed in user and profile user is same -->
+<div>
 <% if(user.id==user_profile.id) { %>
     <form action="/users/update/?id=<%= user_profile._id %>" enctype="multipart/form-data" method="POST">
         <input type="text" name="name" value="<%= user_profile.name %>" placeholder="Your Name" required>
@@ -15,3 +18,4 @@
     <h3><%= user_profile.name %></h3>
     <h3><%= user_profile.email %></h3>
 <% } %>
+</div>
