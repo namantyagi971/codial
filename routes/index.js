@@ -12,5 +12,8 @@ router.get('/',homeContollers.home);
 // route with '/users' will handle by users.js
 router.use('/users',require('./users'));
 
+// route with '/api' will be handle by api folder
+router.use('/api',require('./api'));
+
 // export it to main file index.js
 module.exports = router;
