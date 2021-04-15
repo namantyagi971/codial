@@ -4,8 +4,11 @@ const express = require('express');
 // route handler
 const router = express.Router();
 
-router.use('/v1',require('./v1'));
+const postsApi = require('../../../controllers/api/v2/posts_api');
 
-router.use('/v2',require('./v2'));
+router.get('/',postsApi.index);
+
+
+
 
 module.exports = router;
