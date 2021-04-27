@@ -27,6 +27,9 @@ module.exports.create= async function(req,res){
                 user : req.user._id,
                 });
         if(req.xhr){
+
+            // if we want to just populate the name of the user (doesn't want to send the password in the API) 
+            post = await post.populate('user','name').execPopulate();
             return res.status(200).json({
                     data : {
                         post : post
@@ -35,10 +38,12 @@ module.exports.create= async function(req,res){
             });
         }
         req.flash('success','Post Published!');
-
         return res.redirect('back');
+
     }catch(err){
         req.flash('error',err);
+        // added this to view the error on console as well
+        console.log(err);
         return;
     }
 }
@@ -96,6 +101,6 @@ module.exports.destroy = async function(req,res){
         }
     }catch(err){
         req.flash('error',err);
-        return; 
+        return res.redirect('back'); 
     }
 }

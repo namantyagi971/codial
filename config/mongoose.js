@@ -7,6 +7,7 @@ mongoose.connect('mongodb://localhost/codial_db',{useNewUrlParser:true,useUnifie
 // acquiring the connection
 const db = mongoose.connection;
 
+
 // on error
 db.on('error',console.error.bind("Oops!! Error in connecting to the databse"));
 

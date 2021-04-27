@@ -12,26 +12,28 @@
             </form>
         <% } %>
             
-            <!-- display all posts -->
-            <div id="posts-list-container">
-                <h2> All Posts</h2>
-                <ul>
-                    <% for(post of allposts) { %>
-                        <%- include('./_post'); %>
-                    <% } %>
-                </ul>
-            </div>
-            </section>
-            
-            
-            <!-- section to show user friends  -->
-            <section id="user-friends">
-                <h4>Friends</h4>
-                <%  for(user of all_users) { %>
-                    <p>
-                        <a href="/users/profile/?id=<%= user._id %>"><%= user.name %></a>
-                    </p>
+        <!-- display all posts -->
+        <div id="posts-list-container">
+            <h2> All Posts</h2>
+            <ul>
+                <% for(post of allposts) { %>
+                    <%- include('_post.ejs'); %>
                 <% } %>
-            </section>
+            </ul>
+        </div>
+    </section>
+            
+            
+    <!-- section to show user friends  -->
+    <section id="user-friends">
+        <h4>Friends</h4>
+        <%  for(user of all_users) { %>
+            <p>
+                <a href="/users/profile/?id=<%= user.id %>"><%= user.name %></a>
+            </p>
+        <% } %>
+    </section>
 </div>
+<!-- importing this script for creating the comments -->
+<script src="/js/home_post_comments.js"></script>
 <script src="/js/home_posts.js"></script>           

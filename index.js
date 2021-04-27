@@ -35,10 +35,6 @@ const flash = require('connect-flash');
 // using our own middleware for flash messages
 const customMware = require('./config/middleware');
 
-// extract script and style from subfiles to layouts
-app.set("layout extractStyles", true);
-app.set("layout extractScripts", true);
-
 // setting the sass middleware (just before the server starts as templates need precompiled files)
 app.use(sassMiddleware({
     src : './assets/scss/',
@@ -48,24 +44,24 @@ app.use(sassMiddleware({
     prefix : '/css'
 }));
 
-// call to use expresslayouts
-app.use(expressLayouts);
-
 // middleware to parse the request
 app.use(express.urlencoded());
 
 // middleware for cookie parser
 app.use(cookieParser());
 
-// // extract script and style from subfiles to layouts
-// app.set("layout extractStyles",true);
-// app.set("layout extractScripts",true);
-
 // for including static files
-app.use(express.static('assets'));
+app.use(express.static('./assets'));
 
 // make the uploads path available to the browser
 app.use('/uploads',express.static(__dirname+'/uploads'));
+
+// call to use expresslayouts
+app.use(expressLayouts);
+
+// extract script and style from subfiles to layouts
+app.set("layout extractStyles",true);
+app.set("layout extractScripts",true);
 
 // set up view engine
 app.set('view engine','ejs');
