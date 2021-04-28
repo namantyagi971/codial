@@ -32,6 +32,7 @@ class PostComments{
                 url: '/comments/create',
                 data: $(self).serialize(),
                 success: function(data){
+                    console.log("****data ajax comment",data);
                     let newComment = pSelf.newCommentDom(data.data.comment);
                     $(`#post-comments-${postId}`).prepend(newComment);
                     pSelf.deleteComment($(' .delete-comment-button', newComment));
@@ -46,7 +47,8 @@ class PostComments{
                     }).show();
 
                 }, error: function(error){
-                    console.log(error.responseText);
+                    console.log("**error in creating comments",error.responseText);
+                    return;
                 }
             });
 
@@ -61,7 +63,7 @@ class PostComments{
                         <p>
                             
                             <small>
-                                <a class="delete-comment-button" href="/comments/destroy/${comment._id}">X</a>
+                                <a class="delete-comment-button" href="/comments/delete/?id=${comment._id}">X</a>
                             </small>
                             
                             ${comment.content}

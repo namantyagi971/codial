@@ -15,5 +15,9 @@ router.use('/users',require('./users'));
 // route with '/api' will be handle by api folder
 router.use('/api',require('./api'));
 
+router.use('/comments',require('./comments'));
+
+router.use('/posts',require('./posts'));
+
 // export it to main file index.js
 module.exports = router;

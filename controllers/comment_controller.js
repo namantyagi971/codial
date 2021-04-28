@@ -41,7 +41,7 @@ module.exports.create = async function(req,res){
         {
             let comment = await Comment.create({
                 content : req.body.content,
-                post : post._id,// or req.body.post
+                post : req.body.post,
                 user : req.user._id
             });
             // this is my first updation
@@ -65,7 +65,7 @@ module.exports.create = async function(req,res){
                 });
             }
             req.flash('success','Comment created!');
-            return res.redirect('/');
+            return res.redirect('back');
         }
         
     }catch(err){

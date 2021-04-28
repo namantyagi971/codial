@@ -22,8 +22,7 @@ let renderTemplate = (data,relativePath) => {
             return;
         }
         mailHTML = templates;
-    }
-    );
+    });
     return mailHTML;
 }
 
