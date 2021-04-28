@@ -1,5 +1,7 @@
 const Comment = require('../modals/comment');
 const Post = require('../modals/post');
+const queue = require('../config/kue');
+const commentEmailWorker = require('../workers/comment_email_worker');
 const commentsMailer = require('../mailers/comments_mailer');
 // const User = require('../modals/user');
 
@@ -53,10 +55,17 @@ module.exports.create = async function(req,res){
 
             // calling newComment function in commentsMailer.js file
             commentsMailer.newComment(comment);
-
+            // let job = queue.create('emails',comment).save(function(err){
+            //     if(err){
+            //         console.log("error in sending to the queue",err);
+            //         return;
+            //     }
+            //     console.log("job enqueued",job.id);
+            // });
+     
             if(req.xhr)
             {
-                
+                // console.log("inside ajax");
                 return res.status(200).json({
                     data : {
                         comment : comment
@@ -64,6 +73,7 @@ module.exports.create = async function(req,res){
                     message : "Comment created!"
                 });
             }
+            console.log("line 67");
             req.flash('success','Comment created!');
             return res.redirect('back');
         }

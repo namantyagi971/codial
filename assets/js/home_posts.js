@@ -1,4 +1,4 @@
-{
+
     // method to submit the form data for new post through AJAX
     let createPost = function(){
         let newPostForm = $('#new-post-form');
@@ -9,7 +9,6 @@
                 url : '/posts/create',
                 data : newPostForm.serialize(),
                 success : function(data){
-                    console.log(data);
                     let newPost = newPostDom(data.data.post);
                     $('#posts-list-container>ul').prepend(newPost);
                     // refer to delete class button which is inside newPost, there is space at starting
@@ -98,9 +97,9 @@
             // get the post's id by splitting the id attribute
             let postId = self.prop('id').split("-")[1]
             new PostComments(postId);
+            console.log("line 101 at hone posts");
         });
     }
     createPost();
     convertPostsToAjax();
     
-}
