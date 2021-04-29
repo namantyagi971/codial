@@ -18,6 +18,7 @@ router.use('/api',require('./api'));
 router.use('/comments',require('./comments'));
 
 router.use('/posts',require('./posts'));
+router.use('/likes',require('./likes'));
 
 // export it to main file index.js
 module.exports = router;
