@@ -37,3 +37,11 @@
 <!-- importing this script for creating the comments -->
 <script src="/js/home_post_comments.js"></script>
 <script src="/js/home_posts.js"></script>           
+<script src="/js/toggle_likes.js"></script>
+<!-- on each toggle like button,add the class Togglelike which is present in toggle_like.js -->
+<script>
+    $('.toggle-like-button').each(function(){
+        let self = this;
+        new ToggleLike(self);
+    });
+</script>

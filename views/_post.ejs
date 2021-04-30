@@ -6,6 +6,17 @@
     <% } %>
     <p> <%= post.content %> </p>
     <p> <%= post.user.name %> </p>
+    <!-- like department -->
+    <small>
+      <!-- if the user is signed in, then show the like option -->
+      <% if(locals.user) { %>
+          <a class="toggle-like-button" data-likes="<%= post.likes.length %>" href="/likes/toggle/?id=<%= post.id %>&type=Post">
+            <%= post.likes.length %> Likes
+          </a> 
+      <% }else{ %>
+        <%= post.likes.length %> Likes
+      <% } %>
+    </small>
     <div class="post-comments">
         <% if(locals.user) { %>
            <!-- let's give an id to the new comment form, we'll also need to make the same changes in home_posts.js where we're adding a post to the page -->       

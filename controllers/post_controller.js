@@ -1,7 +1,7 @@
 // importing the schema 
 const Post = require('../modals/post');
 const Comment = require('../modals/comment');
-
+const Like = require('../modals/likes');
 // creating the post in database
 
 // module.exports.create= function(req,res){
@@ -80,6 +80,12 @@ module.exports.destroy = async function(req,res){
         let post = await Post.findById(req.query.id);
         if(req.user.id==post.user)
         {
+            // delete the likes associated with post 
+            await Like.deleteMany({likeable : post, onModel : 'Post'});
+            // delete the likes associated with comments of post
+            await Like.deleteMany({_id : {$in : post.comments}});
+
+            
             post.remove();
             await Comment.deleteMany({post:req.query.id});
             if(req.xhr)

@@ -1,4 +1,4 @@
-
+{
     // method to submit the form data for new post through AJAX
     let createPost = function(){
         let newPostForm = $('#new-post-form');
@@ -15,6 +15,9 @@
                     deletePost($(' .delete-post-button',newPost));
                     // call the create comment class
                     new PostComments(data.data.post._id);
+
+                    // adding the functionality of toggle like on new post
+                    new ToggleLike($(' .toggle-like-button',newPost));
 
                     new Noty({
                         theme: 'relax',
@@ -35,12 +38,18 @@
     // method to create a post in DOM
     let newPostDom = function(post){
         console.log("post : ",post);
+        // change :: while creating comment, initially it has 0 likes
         return $(`<li id="post-${post._id}"> 
                     <small>
                         <a class="delete-post-button" href="/posts/delete/?id=${ post._id}">X</a> 
                     </small>
                     <p> ${post.content} </p>
                     <p> ${post.user.name } </p>
+                    <small>
+                        <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=${post._id}&type=Post">
+                            0 Likes
+                        </a> 
+                    </small>
                         <!-- form for comments -->
                         <div class="post-comments">
                             <form id="post-${ post._id }-comments-form" action="/comments/create" method="POST">
@@ -97,9 +106,9 @@
             // get the post's id by splitting the id attribute
             let postId = self.prop('id').split("-")[1]
             new PostComments(postId);
-            console.log("line 101 at hone posts");
+            // console.log("line 101 at hone posts");
         });
     }
     createPost();
     convertPostsToAjax();
-    
+}
