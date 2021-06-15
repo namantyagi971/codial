@@ -23,6 +23,12 @@ const passportLocal = require('./config/passport-local-strategy');
 const passportJWT = require('./config/passport-jwt-strategy');
 const passportGoogle = require('./config/passport-google-oauth2-strategy');
 
+// setup the chat server by using express to be used with socket.io
+const chatServer = require('http').Server(app);
+const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
+chatServer.listen(5000); // othet than main port i.e, 8000
+console.log("chat server is listening on port 5000");
+
 // require the library
 const MongoStore = require('connect-mongo')(session);
 

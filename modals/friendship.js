@@ -12,7 +12,6 @@ const frienshipSchema = new mongoose.Schema({
     }
 },{
     timestamps : true
-
 });
 
 // telling mongoose that this is our new model

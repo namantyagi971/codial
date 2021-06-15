@@ -22,17 +22,27 @@
             </ul>
         </div>
     </section>
-            
-            
-    <!-- section to show user friends  -->
-    <section id="user-friends">
-        <h4>Friends</h4>
-        <%  for(user of all_users) { %>
-            <p>
-                <a href="/users/profile/?id=<%= user.id %>"><%= user.name %></a>
-            </p>
-        <% } %>
+    <section id = "friends-and-all-users">
+        <!-- div to show all friends of user   -->
+        <div id="all-friends">
+            <h4>All Friends</h4>
+            <%  for(user of all_users) { %>
+                <p>
+                    <a href="/users/profile/?id=<%= user.id %>"><%= user.name %></a>
+                </p>
+            <% } %>
+        </div>            
+        <!-- section to show all user   -->
+        <div id="all-user">
+            <h4>All users</h4>
+            <%  for(user of all_users) { %>
+                <p>
+                    <a href="/users/profile/?id=<%= user.id %>"><%= user.name %></a>
+                </p>
+            <% } %>
+        </div>
     </section>
+    <%- include('_chat_box.ejs'); %>
 </div>
 <!-- importing this script for creating the comments -->
 <script src="/js/home_post_comments.js"></script>
@@ -45,3 +55,5 @@
         new ToggleLike(self);
     });
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
+<script src="/js/chat_engine.js"></script>

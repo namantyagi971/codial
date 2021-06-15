@@ -1,14 +1,40 @@
 // importing the collection
 const User = require('../modals/user');
+const Friendship = require('../modals/friendship');
 const fs = require('fs');
 const path = require('path');
 
 module.exports.profile = function(req,res){
+    // User.findById(req.query.id,function(err,user){
+    //     return res.render('user_profile',{
+    //     title: "User | Profile",
+    //     user_profile : user
+    //     });
+    // });
     User.findById(req.query.id,function(err,user){
-        return res.render('user_profile',{
-        title: "User | Profile",
-        user_profile : user
+        if(err)
+        {
+            connsole.log("error in finding user profile");
+            return;
+        }
+        let are_friends=false;
+        Friendship.findOne({$or : [{from_user:req.user._id,to_user:req.params.id},{from_user:req.params.id,to_user:req.user._id}]},function(err,friendship){
+            if(err)
+            {
+                console.log("error in finding the friends",err);
+                return;
+            }
+            if(friendship)
+            {
+                are_friends=true;
+            }
         });
+        var options = {
+            title : "User | Profile",
+            are_friends : are_friends,
+            user_profile : user
+        }
+        return res.render('user_profile',options);
     });
 }
 
