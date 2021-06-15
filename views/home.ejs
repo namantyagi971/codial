@@ -57,3 +57,11 @@
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
 <script src="/js/chat_engine.js"></script>
+
+<!-- initiate the chatEngine class by passing chatboxid and email to constructor only if user is logged in-->
+
+<% if(locals.user) { %>
+<script>
+    new ChatEngine('user-chat-box','<%= locals.user._id %>');
+</script>
+<% } %>
