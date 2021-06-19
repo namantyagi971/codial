@@ -71,6 +71,6 @@ class ChatEngine{
             newMessage.addClass(messageType);
             
             $('#chat-message-list').append(newMessage);
-        })
+        });
     }
 }

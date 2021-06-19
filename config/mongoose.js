@@ -1,8 +1,9 @@
 // importing mongoose from library
 const mongoose = require('mongoose');
+const env = require('./environment');
 
 //connecting to database mongodb and object to get rid if deprecated warnings
-mongoose.connect('mongodb://localhost/codial_db',{useNewUrlParser:true,useUnifiedTopology:true});
+mongoose.connect(`mongodb://localhost/${env.db}`,{useNewUrlParser:true,useUnifiedTopology:true});
 
 // acquiring the connection
 const db = mongoose.connection;
