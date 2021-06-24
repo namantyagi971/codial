@@ -1,18 +1,24 @@
-<link rel="stylesheet" href="/css/users.css">
-
+<link rel="stylesheet" href="<%= assetPath('css/users.css')%>">
+<!-- <link rel="stylesheet" href="/css/users.css"> -->
 <!-- display image -->
 <img src="<%= user_profile.avatar %>" alt="<%= user_profile.name %>" width="100">
 
 <% if(user.id==user_profile.id) { %>
-    <!-- if user matches then show the form -->
-    <form action="/users/update/?id=<%= user_profile.id %>" enctype="multipart/form-data" method="POST">
+    <!-- if user matches then show the form to update the credentials-->
+    <form action="/users/update/<%= user_profile.id %>" enctype="multipart/form-data" method="POST">
         <input type="text" name="name" value="<%= user_profile.name %>" placeholder="Your Name" required>
         <input type="email" name="email" value="<%= user_profile.email %>" placeholder="Your Email" required>
         <input type="file" name="avatar" placeholder="Profile Picture...">
         <input type="submit" value="Update">
     </form>
 <% }else{ %>
-    <!-- else show only the profile info -->
+    <!-- check whether they are friends or not -->
+    <% if(locals.are_friends) { %>
+        <a href="/users/profile/<%=user_profile._id%>/toggle_friend"> Remove Friend </a>
+    <% }else { %> 
+        <a href="/users/profile/<%=user_profile._id%>/toggle_friend"> Add Friend </a>
+    <% } %>     
+    <!-- show only the profile info -->
     <h3><%= user_profile.name %></h3>
     <h3><%= user_profile.email %></h3>
 <% } %>

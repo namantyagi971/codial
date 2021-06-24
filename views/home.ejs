@@ -1,11 +1,13 @@
-<link rel="stylesheet" href="/css/home.css">
-
+<link rel="stylesheet" href="<%= assetPath('css/home.css') %>">
+<link rel="stylesheet" href="<%= assetPath('css/chat_box.css') %>">
+<!-- <link rel="stylesheet" href="/css/home.css">
+<link rel="stylesheet" href="/css/chat_box.css"> -->
 <div id="home-container">
     <!-- section corresponding to posts -->
     <section id="feed-posts">
         <!-- if the user is signed in, then only show the form -->
+        <h2>Posts</h2>
         <% if(locals.user) { %>
-            <h2>Posts</h2>
             <form action="/posts/create" id="new-post-form" method="POST">
                 <textarea name="content"  cols="30" rows="3" placeholder="Type here..." required></textarea>
                 <input type="submit" value="Post">
@@ -14,7 +16,6 @@
             
         <!-- display all posts -->
         <div id="posts-list-container">
-            <h2> All Posts</h2>
             <ul>
                 <% for(post of allposts) { %>
                     <%- include('_post.ejs'); %>
@@ -26,10 +27,18 @@
         <!-- div to show all friends of user   -->
         <div id="all-friends">
             <h4>All Friends</h4>
-            <%  for(user of all_users) { %>
+            <!-- <%  for(user of all_users) { %>
                 <p>
                     <a href="/users/profile/?id=<%= user.id %>"><%= user.name %></a>
                 </p>
+            <% } %> -->
+            <% if(locals.friends.length==0) { %>
+                <p> Friends list is empty</p>
+            <% } %>
+            <% for(fr of locals.friends) { %>
+                <!-- <img src="<%= fr.friend_avatar%>" alt="friend photo"> -->
+                <a href="/users/profile/<%=fr.friend_id%>"><%= fr.friend_name %></a>
+                <i class="fas fa-comment"></i>
             <% } %>
         </div>            
         <!-- section to show all user   -->
@@ -37,7 +46,7 @@
             <h4>All users</h4>
             <%  for(user of all_users) { %>
                 <p>
-                    <a href="/users/profile/?id=<%= user.id %>"><%= user.name %></a>
+                    <a href="/users/profile/<%= user.id %>"><%= user.name %></a>
                 </p>
             <% } %>
         </div>
@@ -45,9 +54,12 @@
     <%- include('_chat_box.ejs'); %>
 </div>
 <!-- importing this script for creating the comments -->
-<script src="/js/home_post_comments.js"></script>
+<script src="<%= assetPath('js/home_post_comments.js') %>"></script>
+<script src="<%= assetPath('js/home_posts.js') %>"></script>           
+<script src="<%= assetPath('js/toggle_likes.js') %>"></script>
+<!-- <script src="/js/home_post_comments.js"></script>
 <script src="/js/home_posts.js"></script>           
-<script src="/js/toggle_likes.js"></script>
+<script src="/js/toggle_likes.js"></script> -->
 <!-- on each toggle like button,add the class Togglelike which is present in toggle_like.js -->
 <script>
     $('.toggle-like-button').each(function(){
@@ -56,7 +68,8 @@
     });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
-<script src="/js/chat_engine.js"></script>
+<script src="<%= assetPath('js/chat_engine.js')%>"></script>
+<!-- <script src="/js/chat_engine.js"></script> -->
 
 <!-- initiate the chatEngine class by passing chatboxid and email to constructor only if user is logged in-->
 

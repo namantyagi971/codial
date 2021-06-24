@@ -5,7 +5,7 @@
         </div>
         <div id="nav-option">
             <% if(locals.user) { %>
-                <a href='/users/profile'><%= user.name %> </a>
+                <a href='/users/profile/<%=user._id %>'><%= user.name %> </a>
                 <a href='/users/sign-out'>Sign Out</a>
             <% } else { %>
                 <a href='/users/sign-in'>Sign In </a>

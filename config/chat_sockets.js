@@ -3,16 +3,16 @@ module.exports.chatSockets = function(socketServer){
 
     // when server(observer) recieves request from front hand(i.e, client side)
     io.sockets.on('connection',function(socket){
-        console.log('new connection recieved',socket.id); 
+        console.log('new connection received',socket.id); 
         
         // whenever client disconnects
         socket.on('disconnect',function(){
-        console.log("socket disconnected");
+        console.log("socket disconnected!");
         });
 
         // join room event from client side is detected by .on
         socket.on('join_room',function(data){
-            console.log('joining request recieved',data);
+            console.log('joining request received',data);
 
             // if room with this chatroom exists, then it will push the client into the room otherwise
             // create new chatroom with this name
@@ -24,7 +24,7 @@ module.exports.chatSockets = function(socketServer){
 
         // server will receive the message and broadcast it to everyone in the room
         socket.on('send_message',function(data){
-            io.in(data.chatroom).emit('recieve_message',data);
+            io.in(data.chatroom).emit('receive_message',data);
         });
     });
 

@@ -14,7 +14,7 @@ db.on('error',console.error.bind("Oops!! Error in connecting to the databse"));
 
 // on successfully connected to database
 db.once('open',function(){
-    console.log("yeah!!! finally we have our MongoDB");
+    console.log("connected to Database :: MongoDB");
 });
 
 // exporting to use by other files

@@ -1,0 +1,15 @@
+#flexible {
+  display: flex;
+  justify-content: space-between;
+  background-color: blue; }
+  #flexible #website-name {
+    color: cornsilk;
+    margin: 20px 10px;
+    font-size: 1.5rem;
+    font-weight: 700; }
+  #flexible #nav-option a {
+    display: inline-block;
+    margin: 20px 10px;
+    color: cornsilk;
+    font-size: 1.2rem;
+    text-decoration: none; }

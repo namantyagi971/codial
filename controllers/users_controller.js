@@ -4,36 +4,35 @@ const Friendship = require('../modals/friendship');
 const fs = require('fs');
 const path = require('path');
 
-module.exports.profile = function(req,res){
+module.exports.profile = async function(req,res){
     // User.findById(req.query.id,function(err,user){
     //     return res.render('user_profile',{
     //     title: "User | Profile",
     //     user_profile : user
     //     });
     // });
-    User.findById(req.query.id,function(err,user){
+    User.findById(req.params.id,async function(err,user){
         if(err)
         {
             connsole.log("error in finding user profile");
             return;
         }
-        let are_friends=false;
-        Friendship.findOne({$or : [{from_user:req.user._id,to_user:req.params.id},{from_user:req.params.id,to_user:req.user._id}]},function(err,friendship){
-            if(err)
-            {
-                console.log("error in finding the friends",err);
-                return;
-            }
+        let are_friends = false;
+        let friendship = await Friendship.findOne({$or : [{from_user:req.user._id,to_user:req.params.id},{from_user:req.params.id,to_user:req.user._id}]});
+    
             if(friendship)
             {
-                are_friends=true;
+                are_friends = true;
+                // console.log("***** are friends inside : ",are_friends);
             }
-        });
+            
         var options = {
             title : "User | Profile",
             are_friends : are_friends,
-            user_profile : user
-        }
+            user_profile : user,
+            user_name : "Naman Tyagi"
+        };
+        // console.log("***** are friends outside : ",are_friends);
         return res.render('user_profile',options);
     });
 }
@@ -52,10 +51,10 @@ module.exports.update= async function(req,res){
     // {
     //     return res.status(401).send('Unauthorized');
     // }
-    if(req.user.id==req.query.id)
+    if(req.user.id==req.params.id)
     {
         try{
-                let user = await User.findById(req.query.id);
+                let user = await User.findById(req.params.id);
                 User.uploadedAvatar(req,res,function(err)
                 {
                     if(err)

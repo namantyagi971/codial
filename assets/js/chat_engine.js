@@ -36,6 +36,7 @@ class ChatEngine{
         // now client is sending the msg to the server(observer)
         $('#send-message').click(function(){
             let msg = $('#chat-message-input').val();
+            console.log("*****message : ",msg);
             if(msg!='')
             {
                 self.socket.emit('send_message',{
@@ -47,8 +48,8 @@ class ChatEngine{
         });
 
         // Client recieved what is broadcasted by the server
-        self.socket.on('recieve_message',function(data){
-            console.log("message recieved",data);
+        self.socket.on('receive_message',function(data){
+            console.log("message received : ",data.message);
 
             // now we need to check whether the recieved msg is self or other 
             let messageType = 'other-message';
@@ -64,13 +65,13 @@ class ChatEngine{
                 'html' : data.message
             }));
 
-            newMessage.append($('<sub>',{
+            newMessage.append($('<p>',{
                 'html' : data.user_email
             }));
 
             newMessage.addClass(messageType);
             
-            $('#chat-message-list').append(newMessage);
+            $('#chat-messages-list').append(newMessage);
         });
     }
 }
