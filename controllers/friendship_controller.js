@@ -12,17 +12,11 @@ module.exports.toggle_friend = async function(req,res){
             console.log("*** now they are no longer friends");
 
             // updating the user database by pulling friendship id from both user
-           let data1 = await User.findByIdAndUpdate(from_id,{$pull : {friendships : existing_friendship._id}});
-           data1.save();
+           let data1 = await User.findByIdAndUpdate(from_id,{$pull : {friendships : existing_friendship._id}},{new : true});
            console.log("User1 data,after they end their friendship : ",data1);
 
-           let data2 = await User.findByIdAndUpdate(to_id ,{$pull : {friendships : existing_friendship._id}});
-           data2.save();
+           let data2 = await User.findByIdAndUpdate(to_id ,{$pull : {friendships : existing_friendship._id}},{new:true});
            console.log("User2 data, after they end their friendship : ",data2);
-           if(data1.friendships.length==0)
-           {
-               console.log("entry in friendship at console");
-           }
 
            // updating the friendship database
            let no_friendship = await Friendship.deleteOne({$or : [{from_user:from_id,to_user:to_id},{from_user:to_id,to_user:from_id}]});
@@ -33,19 +27,16 @@ module.exports.toggle_friend = async function(req,res){
            // they are becoming friends for first time 
            // updating the friendship database
            console.log("***** they are friends now");
+
+           // creating friendship
            let new_friendship = await Friendship.create({from_user : from_id,to_user : to_id});
            new_friendship.save();
            console.log("friendship schema after becoming friend : ",new_friendship);
            
            // updating the user database
-           let data1 = await User.findByIdAndUpdate(from_id,{$push : {friendships : new_friendship._id}});
-           data1.save();
-           let data2 = await User.findByIdAndUpdate(to_id,{$push : {friendships : new_friendship._id}});
-           data2.save();
-           if(data1.friendships.length==0)
-           {
-               console.log("no entry in friendship at console");
-           }
+           let data1 = await User.findByIdAndUpdate(from_id,{$push : {friendships : new_friendship._id}},{new : true});
+           let data2 = await User.findByIdAndUpdate(to_id,{$push : {friendships : new_friendship._id}},{new :true});
+           
            console.log("User1 data, after they become friends: ",data1);
            console.log("User2 data, after they become friends: ",data2);
         }
