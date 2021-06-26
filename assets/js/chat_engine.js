@@ -7,7 +7,7 @@ class ChatEngine{
         // initiate the connection with observer(server)
         // io is a global variable
 
-        this.socket=io.connect('http://localhost:5000');
+        this.socket=io.connect('http://localhost:5000',{ transports: ['websocket', 'polling', 'flashsocket'] });
 
         if(this.userEmail)
         {

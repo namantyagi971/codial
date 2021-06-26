@@ -28,7 +28,7 @@ module.exports.toggle_friend = async function(req,res){
            // updating the friendship database
            console.log("***** they are friends now");
 
-           // creating friendship
+           // creating friendship in database
            let new_friendship = await Friendship.create({from_user : from_id,to_user : to_id});
            new_friendship.save();
            console.log("friendship schema after becoming friend : ",new_friendship);
@@ -36,7 +36,7 @@ module.exports.toggle_friend = async function(req,res){
            // updating the user database
            let data1 = await User.findByIdAndUpdate(from_id,{$push : {friendships : new_friendship._id}},{new : true});
            let data2 = await User.findByIdAndUpdate(to_id,{$push : {friendships : new_friendship._id}},{new :true});
-           
+
            console.log("User1 data, after they become friends: ",data1);
            console.log("User2 data, after they become friends: ",data2);
         }

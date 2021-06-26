@@ -103,13 +103,19 @@ module.exports.home = async function(req,res){
 
             }
         }
-        var options = {
-                title : "Codial | home",
-                allposts : posts,
-                all_users : users,
-                friends : friends
-        };
-        return res.render('home',options);
+        // var options = {
+        //         title : "Codial | home",
+        //         allposts : posts,
+        //         all_users : users,
+        //         friends : friends
+        // };
+        // console.log("options : ",options);
+        return res.render('home',{
+            title : "Codial | home",
+            allposts : posts,
+            all_users : users,
+            friends : friends
+        });
 
     }catch(err){
      console.log(`Error ${err}`);

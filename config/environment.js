@@ -19,7 +19,7 @@ const development = {
     name : 'development',
     asset_path : '/assets',
     session_cookie_key : 'blahsomething',
-    db : 'codial_db',
+    db : 'codial_development',
     smtp : {
         service : 'gmail',
         host : 'smtp.gmail.com',
