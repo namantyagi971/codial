@@ -11,6 +11,9 @@ const logger = require('morgan');
 // require the cookies
 const cookieParser = require('cookie-parser');
 
+// cors is used when resource is sharing on many places 
+const cors = require('cors');
+
 
 // fire up the server
 const app = express();
@@ -66,8 +69,10 @@ if(env.name=='development')
 }
 
 
+app.use(cors());
+
 // middleware to parse the request
-app.use(express.urlencoded());
+app.use(express.urlencoded({extended:false}));
 
 // middleware for cookie parser
 app.use(cookieParser());
